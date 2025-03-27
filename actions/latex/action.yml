@@ -41,3 +41,29 @@ runs:
       shell: bash
       run: |
         mkdir -p publish
+        for f in ${{ inputs.paper }}; do
+          cp $f publish
+        done
+
+    - name: Generate compilation report
+      shell: bash
+      run: |
+        {
+          echo "# LaTeX Compilation Report"
+          echo "Generated: $(date)"
+          echo "## Compiled Documents"
+          for f in publish/*.pdf; do
+            echo "- $(basename $f)"
+            echo "  - Size: $(ls -lh "$f" | awk '{print $5}')"
+            echo "  - SHA256: $(sha256sum "$f" | cut -d' ' -f1)"
+          done
+        } > publish/compilation_report.md
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: draft
+        folder: publish
+        commit-message: "Build: ${{ env.TIMESTAMP }} [skip ci]"
+        clean: true
+        single-commit: false
