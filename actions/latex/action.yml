@@ -4,9 +4,9 @@ description: GitHub Action to compile and deploy LaTeX documents
 
 inputs:
     paper:
-    description: 'space-separated list of LaTeX files to compile'
-    type: string
-    required: true
+      description: 'space-separated list of LaTeX files to compile'
+      type: string
+      required: true
 
 runs:
   using: "composite"
@@ -37,7 +37,7 @@ runs:
         root_file: ${{ inputs.paper }}
       work_in_root_file_dir: true
 
-    - name: Create output directories
+    - name: Create deploy directories
       shell: bash
       run: |
         mkdir -p publish
