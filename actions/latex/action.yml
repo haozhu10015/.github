@@ -2,9 +2,6 @@ name: Compile and Deploy LaTeX Documents
 
 description: GitHub Action to compile and deploy LaTeX documents
 
-permissions:
-  contents: write
-
 inputs:
     paper:
       description: 'space-separated list of LaTeX files to compile'
