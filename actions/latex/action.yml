@@ -35,7 +35,7 @@ runs:
       uses: xu-cheng/latex-action@v3
       with:
         root_file: ${{ inputs.paper }}
-      work_in_root_file_dir: true
+        work_in_root_file_dir: true
 
     - name: Create deploy directories
       shell: bash
