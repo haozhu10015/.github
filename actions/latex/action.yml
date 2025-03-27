@@ -1,0 +1,43 @@
+name: Compile and Deploy LaTeX Documents
+
+description: GitHub Action to compile and deploy LaTeX documents
+
+inputs:
+    paper:
+    description: 'space-separated list of LaTeX files to compile'
+    type: string
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for versioning
+
+    - name: Setup environment variables
+      shell: bash
+      run: |
+        echo "TIMESTAMP=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_ENV
+
+    - name: Validate input files
+      shell: bash
+      run: |
+        for f in ${{ inputs.paper }}; do
+          if [ ! -f "$f" ]; then
+            echo "Error: File $f not found!"
+            exit 1
+          fi
+        done
+
+    - name: Compile LaTeX documents
+      uses: xu-cheng/latex-action@v3
+      with:
+        root_file: ${{ inputs.paper }}
+      work_in_root_file_dir: true
+
+    - name: Create output directories
+      shell: bash
+      run: |
+        mkdir -p publish
