@@ -42,7 +42,7 @@ runs:
       run: |
         mkdir -p publish
         for f in ${{ inputs.paper }}; do
-          cp $f publish
+          cp "${f%.tex}.pdf" publish
         done
 
     - name: Generate compilation report
