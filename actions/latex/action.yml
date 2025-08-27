@@ -32,7 +32,6 @@ runs:
         done
 
     - name: Download FoilTex
-      shell: bash
       run: |
         curl -OL https://mirrors.ctan.org/macros/latex/contrib/foiltex.zip
         unzip foiltex.zip
@@ -41,10 +40,10 @@ runs:
       uses: xu-cheng/latex-action@v4
       with:
         root_file: ${{ inputs.paper }}
-        pre_compile: "cd foiltex && latex foiltex.ins"
+        pre_compile: "latex foiltex/foiltex.ins"
         work_in_root_file_dir: true
       env:
-        TEXINPUTS: "$GITHUB_WORKSPACE/foiltex//:"
+        TEXINPUTS: ".:./foiltex//:"
 
     - name: Create deploy directories
       shell: bash
