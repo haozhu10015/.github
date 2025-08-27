@@ -44,7 +44,7 @@ runs:
         pre_compile: "latex foiltex/foiltex.ins"
         work_in_root_file_dir: true
       env:
-        TEXINPUTS: ".:./foiltex//:"
+        TEXINPUTS: "$GITHUB_WORKSPACE/foiltex//:"
 
     - name: Create deploy directories
       shell: bash
