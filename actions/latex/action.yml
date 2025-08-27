@@ -32,6 +32,7 @@ runs:
         done
 
     - name: Download FoilTex
+      shell: bash
       run: |
         curl -OL https://mirrors.ctan.org/macros/latex/contrib/foiltex.zip
         unzip foiltex.zip
