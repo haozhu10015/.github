@@ -41,10 +41,12 @@ runs:
       uses: xu-cheng/latex-action@v4
       with:
         root_file: ${{ inputs.paper }}
-        pre_compile: "latex foiltex/foiltex.ins"
+        pre_compile: |
+          cd foiltex && latex foiltex.ins
+          for f in ${{ inputs.paper }}; do
+            cp foiltex/* $(dirname "$f")
+          done
         work_in_root_file_dir: true
-      env:
-        TEXINPUTS: ".:../foiltex//:"
 
     - name: Create deploy directories
       shell: bash
