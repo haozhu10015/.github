@@ -36,9 +36,6 @@ runs:
       run: |
         curl -OL https://mirrors.ctan.org/macros/latex/contrib/foiltex.zip
         unzip foiltex.zip
-        REPO_DIR=$(pwd)
-        echo "The current working directory is: $REPO_DIR"
-        ls -l $REPO_DIR
 
     - name: Compile LaTeX documents
       uses: xu-cheng/latex-action@v4
@@ -47,8 +44,9 @@ runs:
         pre_compile: |
           REPO_DIR=$(pwd)
           echo "The current working directory is: $REPO_DIR"
-          ls -l $REPO_DIR
-          latex $REPO_DIR/foiltex/foiltex.ins
+          echo "$GITHUB_WORKSPACE"
+          cd $REPO_DIR/foiltex
+          latex foiltex.ins
         work_in_root_file_dir: true
       env:
         TEXINPUTS: "$REPO_DIR/foiltex//:"
