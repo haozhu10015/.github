@@ -41,10 +41,13 @@ runs:
       uses: xu-cheng/latex-action@v4
       with:
         root_file: ${{ inputs.paper }}
-        pre_compile: "latex foiltex/foiltex.ins"
+        pre_compile: |
+          REPO_DIR=$(pwd)
+          echo "The current working directory is: $REPO_DIR"
+          latex $REPO_DIR/foiltex/foiltex.ins
         work_in_root_file_dir: true
       env:
-        TEXINPUTS: "/github/workspace/foiltex//:"
+        TEXINPUTS: "$REPO_DIR/foiltex//:"
 
     - name: Create deploy directories
       shell: bash
