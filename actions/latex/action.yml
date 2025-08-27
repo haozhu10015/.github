@@ -44,6 +44,7 @@ runs:
         pre_compile: |
           REPO_DIR=$(pwd)
           echo "The current working directory is: $REPO_DIR"
+          ll $REPO_DIR
           latex $REPO_DIR/foiltex/foiltex.ins
         work_in_root_file_dir: true
       env:
